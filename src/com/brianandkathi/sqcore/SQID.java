@@ -11,15 +11,21 @@ import java.util.UUID;
  * @author brian
  *
  */
-public class SQID {
+public abstract class SQID implements IDump {
 
 	protected UUID sqid;
 
 	public SQID() {
 		sqid = UUID.randomUUID();
 	}
-
-	public void dump() {
-		System.out.println("SQID:"+sqid);
+	
+	protected void echo(String message) {
+		System.out.println(message);
 	}
+	
+	@Override
+	public String toString() {
+		return sqid.toString();
+	}
+
 }

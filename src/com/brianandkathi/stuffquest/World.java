@@ -3,32 +3,35 @@
  */
 package com.brianandkathi.stuffquest;
 
-import com.brianandkathi.sqcore.GOB;
+import com.brianandkathi.sqcore.Place;
+import com.brianandkathi.sqcore.SQID;
 
 /**
  * World - connects all the places you can go.
  * <p>
- * A world is not actually something you can walk around on, it is more like
- * a series of connections between the places you can walk.
+ * A World connects Grids together
  * 
  * @see Grid
- * @see GOB
  * 
  * @author brian
  *
  */
-public class World extends GOB {
+public class World extends Place {
 
-	/**
-	 * 
-	 */
-	public World() {
-		super();
+	private String description;
+
+	public World(String description) {
+		this.description = description;
 	}
 	
+	@Override
+	public String toString() {
+		return description;
+	}
+	
+	@Override
 	public void dump() {
-		super.dump();
-		System.out.println("World:"+sqid);
+		echo(description+" [world_"+sqid+"]");
 	}
 
 }

@@ -3,28 +3,40 @@
  */
 package com.brianandkathi.sqcore;
 
+import com.brianandkathi.stuffquest.World;
+
 /**
- * Grid - a walkable surface.
- * <p>
- * A GOB can be located on a Grid.
+ * Grid - a rectangular patch of ground whose coordinates range from (0,0) to (1,1).
+ * The Grid is a container and it can hold Game Objects.  These objects will have a
+ * precise location (Coordinate) on the grid.
  * 
  * @see GOB Game Object
  * 
  * @author brian
  *
  */
-public class Grid extends GOB {
+public class Grid extends Place {
 
-	/**
-	 * 
-	 */
-	public Grid() {
+	private String description;
+	private Place place;
+	private Position position;
+	
+	public Grid(Place place, String description, Position position) {
 		super();
+		this.place = place;
+		this.description = description;
+		this.position = new Position(position);
 	}
 	
+	@Override
+	public String toString() {
+		return description;
+	}
+	
+	@Override
 	public void dump() {
-		super.dump();
-		System.out.println("Grid:"+sqid);
+		echo(description+" [grid_"+sqid+"]");
+		echo(description+" is in "+place.toString()+" at "+position.toString());
 	}
 
 }
