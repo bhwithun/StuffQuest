@@ -1,0 +1,31 @@
+"Region" differs only from "subregion" in that it has the ability to direct the player
+to the world map. Both a region and a subregion are map areas, and both permit the
+characters to travel to other maps. If a region is a distinct class from subregion,
+then both classes must be able to point at each other (you can travel from the subregion
+of Nashel Mines Floor 1 to the region of Nashkel Mines' Surface, and vice versa). They
+would contain much the same code and functionality, the only difference being that a
+region may grant the player access to the world map somehow. Rather than duplicate this
+code, have Region be a subclass of SubRegion. This way, using the ability of one
+SubRegion to point to another, a Subregion and a Region may still point at one another,
+But the extended Region will have the additional functionality of accessing the World
+Map, while a SubRegion does not. In this sense, you can travel amongst SubRegions freely,
+and if the SubRegion you are in happens to be a Region, you may access the World Map in
+addition to accessing other SubRegions.
+
+Two things to note about this:
+1. Will party members be able to be in different SubRegions from one another? "You Must
+   Gather Your Party Before Venturing Forth" versus entering/exiting the Nashkel Store.
+   Consider whether you can have different SubRegions loaded at the same time. Ideas:
+   a. you may have any SubRegions which are connected to each other loaded in parallel.
+      This would permit one character to be in Gullykin and one to be at the Firewine
+      Bridge, however. The only case of "You Must Gather Your Party....." would be in
+      the case of attempting to access the World Map, which would require all characters
+      to be near one another in the same loaded SubRegion.
+   b. you may designate certain map relationships to necessitate the party to be
+      together before loading the next map. This would allow you to arbitrarily decide
+      which SubRegions the characters may or may not be in at the same time. For
+      instance, one character may be in Gullykin while another is in the crypt below,
+      but the second could not travel from the Crypt to the Firewine Bridge until the
+      first has caught up.
+2. Time manipulation (such as from travelling from Friendly Arm to Nashkel) should be a
+   function of the World Map rather than a Region or SubRegion.

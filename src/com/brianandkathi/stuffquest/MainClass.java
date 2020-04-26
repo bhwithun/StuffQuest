@@ -1,24 +1,30 @@
 package com.brianandkathi.stuffquest;
 
-import com.brianandkathi.sqcore.Database;
-import com.brianandkathi.sqcore.Grid;
-import com.brianandkathi.sqcore.Position;
+import com.brianandkathi.sqcore.GameData;
 
 public class MainClass {
 
 	public static void main(String[] args) {
 
-		Database database = new Database();
+		GameData database = new GameData();
 		database.connect("game.db");
 		
+		database.LoadGrid("Beregost");
+		/*
+		Grid beregost = new Grid("Beregost");
+		
+		Grid feldpostsinn = new Grid("Feldpost's Inn");
+
+		Portal beregost_to_feldpostsinn 
+		  = new Portal(beregost,new Position(0.15,0.6),feldpostsinn,new Position(0.5,0));
+		
+		Portal feldpostsinn_to_beregost
+		  = new Portal(feldpostsinn,new Position(0.5,0),beregost,new Position(0.15,0.6));
+		
 		World world = new World("The Sword Coast");
-		world.dump();
 		
-		Grid beregost = new Grid(world,"Beregost",new Position(0.1,0.1));
-		beregost.dump();
-		
-		Grid feldpostsinn = new Grid(beregost,"Feldpost's Inn",new Position(0.2,0.75));
-		feldpostsinn.dump();
+		world.add(beregost,new Position(0.3,0.7));
+		*/
 		
 	}
 

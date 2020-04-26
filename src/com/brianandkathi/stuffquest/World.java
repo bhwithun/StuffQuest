@@ -3,7 +3,8 @@
  */
 package com.brianandkathi.stuffquest;
 
-import com.brianandkathi.sqcore.Place;
+import com.brianandkathi.sqcore.Grid;
+import com.brianandkathi.sqcore.Position;
 import com.brianandkathi.sqcore.SQID;
 
 /**
@@ -16,12 +17,13 @@ import com.brianandkathi.sqcore.SQID;
  * @author brian
  *
  */
-public class World extends Place {
+public class World extends SQID {
 
 	private String description;
 
 	public World(String description) {
 		this.description = description;
+		dump();
 	}
 	
 	@Override
@@ -32,6 +34,10 @@ public class World extends Place {
 	@Override
 	public void dump() {
 		echo(description+" [world_"+sqid+"]");
+	}
+
+	public void add(Grid grid, Position position) {
+		echo(grid.toString()+" is on "+description+" at "+position.toString());
 	}
 
 }

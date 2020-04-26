@@ -19,6 +19,10 @@ public abstract class SQID implements IDump {
 		sqid = UUID.randomUUID();
 	}
 	
+	public SQID(String uuid) {
+		sqid = UUID.fromString(uuid);
+	}
+	
 	protected void echo(String message) {
 		System.out.println(message);
 	}

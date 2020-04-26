@@ -3,8 +3,6 @@
  */
 package com.brianandkathi.sqcore;
 
-import com.brianandkathi.stuffquest.World;
-
 /**
  * Grid - a rectangular patch of ground whose coordinates range from (0,0) to (1,1).
  * The Grid is a container and it can hold Game Objects.  These objects will have a
@@ -15,17 +13,14 @@ import com.brianandkathi.stuffquest.World;
  * @author brian
  *
  */
-public class Grid extends Place {
+public class Grid extends SQID {
 
 	private String description;
-	private Place place;
-	private Position position;
 	
-	public Grid(Place place, String description, Position position) {
-		super();
-		this.place = place;
+	public Grid(String description, String uuid) {
+		super(uuid);
 		this.description = description;
-		this.position = new Position(position);
+		dump();
 	}
 	
 	@Override
@@ -36,7 +31,18 @@ public class Grid extends Place {
 	@Override
 	public void dump() {
 		echo(description+" [grid_"+sqid+"]");
-		echo(description+" is in "+place.toString()+" at "+position.toString());
+	}
+	
+	public void add_entrance(Portal portal) {
+		if(portal.exit()==null) {
+			echo(toString()+" has a Portal out at "+portal.entranceCoordinates());
+		} else {
+			echo(toString()+" has a Portal to "+portal.exit().toString());
+		}
+	}
+	
+	public void add_exit(Portal portal) {
+		echo(toString()+" has a Portal from "+portal.entrance().toString());
 	}
 
 }
