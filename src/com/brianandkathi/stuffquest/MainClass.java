@@ -1,31 +1,21 @@
 package com.brianandkathi.stuffquest;
 
-import com.brianandkathi.sqcore.GameData;
+import com.brianandkathi.sqcore.Grid;
+import com.brianandkathi.sqcore.SQID;
 
 public class MainClass {
 
 	public static void main(String[] args) {
 
-		GameData database = new GameData();
-		database.connect("game.db");
+		SQID.connect("game.db");
 		
-		database.LoadGrid("Beregost");
-		/*
-		Grid beregost = new Grid("Beregost");
-		
-		Grid feldpostsinn = new Grid("Feldpost's Inn");
+		Grid nashkel = SQID.loadGrid("Nashkel");
+		nashkel.loadGameObjects();
+		nashkel.dump();
 
-		Portal beregost_to_feldpostsinn 
-		  = new Portal(beregost,new Position(0.15,0.6),feldpostsinn,new Position(0.5,0));
-		
-		Portal feldpostsinn_to_beregost
-		  = new Portal(feldpostsinn,new Position(0.5,0),beregost,new Position(0.15,0.6));
-		
-		World world = new World("The Sword Coast");
-		
-		world.add(beregost,new Position(0.3,0.7));
-		*/
-		
+		Grid beregost = SQID.loadGrid("Beregost");
+		beregost.loadGameObjects();
+		beregost.dump();
 	}
 
 }

@@ -3,6 +3,10 @@
  */
 package com.brianandkathi.sqcore;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Grid - a rectangular patch of ground whose coordinates range from (0,0) to (1,1).
  * The Grid is a container and it can hold Game Objects.  These objects will have a
@@ -15,12 +19,14 @@ package com.brianandkathi.sqcore;
  */
 public class Grid extends SQID {
 
-	private String description;
+	protected String description;
+	protected ArrayList<GOB> gobs;
 	
 	public Grid(String description, String uuid) {
 		super(uuid);
 		this.description = description;
-		dump();
+		gobs = new ArrayList<GOB>();
+		gobs.add(new Item("Rock",this,new Position(.144,.72)));
 	}
 	
 	@Override
@@ -30,19 +36,31 @@ public class Grid extends SQID {
 	
 	@Override
 	public void dump() {
-		echo(description+" [grid_"+sqid+"]");
+		echo(description);
+		for(GOB gob: gobs) {
+			echo("   "+gob.toString());
+		}
 	}
-	
-	public void add_entrance(Portal portal) {
-		if(portal.exit()==null) {
-			echo(toString()+" has a Portal out at "+portal.entranceCoordinates());
-		} else {
-			echo(toString()+" has a Portal to "+portal.exit().toString());
+
+	/**
+	 * Causes the Grid to load all of the game objects located inside it
+	 */
+	public void loadGameObjects() {
+		loadPortals();
+	}
+
+	private void loadPortals() {
+		ResultSet rs=database.getResultSet("SELECT * FROM portal, placement WHERE placement.grid_uuid = '"+sqid+"' AND placement.object_uuid = portal.uuid;");
+		if(rs!=null) {
+			try {
+				while(rs.next()) {
+					Portal portal = new Portal(this,new Position(rs.getFloat("xloc"),rs.getFloat("yloc")));
+					gobs.add(portal);
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 	
-	public void add_exit(Portal portal) {
-		echo(toString()+" has a Portal from "+portal.entrance().toString());
-	}
-
 }

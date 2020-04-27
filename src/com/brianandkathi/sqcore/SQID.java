@@ -1,5 +1,6 @@
 package com.brianandkathi.sqcore;
 
+import java.sql.ResultSet;
 import java.util.UUID;
 
 /**
@@ -14,6 +15,7 @@ import java.util.UUID;
 public abstract class SQID implements IDump {
 
 	protected UUID sqid;
+	protected static Database database = new Database();
 
 	public SQID() {
 		sqid = UUID.randomUUID();
@@ -32,4 +34,24 @@ public abstract class SQID implements IDump {
 		return sqid.toString();
 	}
 
+	public static void connect(String string) {
+		database = new Database();
+		database.connect("game.db");
+	}
+
+	public static Grid loadGrid(String name) {
+		Grid grid = null;
+		ResultSet rs=database.getResultSet("SELECT * FROM grid WHERE description='"+name+"'");
+		if(rs!=null) {
+			try {
+				while(grid==null & rs.next()) {
+					grid=new Grid(rs.getString("description"),rs.getString("uuid"));
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return grid;
+	}
+	
 }

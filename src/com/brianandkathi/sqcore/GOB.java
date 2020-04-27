@@ -14,9 +14,9 @@ package com.brianandkathi.sqcore;
  */
 public abstract class GOB extends SQID {
 
-	private String description;
-	private Grid grid;
-	private Position position;
+	protected String description;
+	protected Grid grid;
+	protected Position position;
 	
 	public GOB(String description, Grid grid, Position position) {
 		super();
@@ -28,6 +28,15 @@ public abstract class GOB extends SQID {
 	@Override
 	public void dump() {
 		echo( description + " is at " + position.toString() + " in " + grid.toString());
+	}
+
+	@Override
+	public String toString() {
+		String s =description;
+		if(position!=null) {
+			s += " at "+position.toString();
+		}
+		return s;
 	}
 
 }

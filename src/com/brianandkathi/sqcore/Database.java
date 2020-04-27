@@ -50,7 +50,7 @@ public class Database {
 	
 	public ResultSet getResultSet(String select_statement) {
 		ResultSet resultSet = null;
-		System.out.println("getResultSet: "+select_statement);
+		//System.out.println("getResultSet: "+select_statement);
 		try {
 			resultSet = statement.executeQuery(select_statement);
 		} catch (SQLException e) {
